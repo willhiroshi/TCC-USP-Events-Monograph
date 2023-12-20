@@ -1,0 +1,145 @@
+%!TeX root=../tese.tex
+%("dica" para o editor de texto: este arquivo é parte de um documento maior)
+% para saber mais: https://tex.stackexchange.com/q/78101
+
+\chapter{Tecnologias}
+
+O intuito inicial do projeto era criar uma plataforma que pudesse ser
+facilmente acessada através de navegadores que todos estão acostumados a usar
+no dia-a-dia, dessa forma, tornou-se necessário a definição de como poderia ser
+estruturado o projeto e quais as ferramentas a serem utilizadas a fim de
+viabilizar a criação de uma plataforma \textit{web} que atendessem ao objetivo
+inicial do projeto.
+
+Em relação à estrutura do projeto, a princípio, a separação mais clara e óbvia
+foi a escolhida. O sistema foi dividido em dois sub projetos, \textit{back-end}
+o qual ficaria responsável pelo armazenamento de dados, obtenção dos textos
+fonte e processamento das informações; e \textit{front-end} que seria utilizado
+para exibição dos dados e interação do usuário com a plataforma.
+
+Ao longo do desenvolvimento foi se tornando cada vez mais clara uma nova
+separação para a estrutura geral, assim, um novo módulo chamado de
+\textit{scripts} foi criado no projeto, onde foram alocados arquivos que não se
+encaixavam exatamente no escopo que estava sendo definindo para o
+\textit{back-end}.
+
+Dessa forma, a aplicação está construída em três partes principais:
+\textit{front-end}, \textit{back-end} e \textit{webscraper scripts}. A seguir,
+será descrita em mais detalhes a escolha das tecnologias utilizadas e o
+objetivo de cada camada.
+
+\section{\textit{Back-end}}
+
+O \textit{back-end} é uma parte crucial de um sistema \textit{web} responsável
+pelo processamento, gerenciamento, armazenamento e segurança de dados. Ele age
+como uma camada intermediária que permite aos usuários interagirem com o
+sistema sem a necessidade de entender as complexidades de suas operações.
+
+A comunicação com o \textit{front-end} foi feita implementando a arquitetura
+\ac{REST} e \acp{API}. Essa abordagem permite ao \textit{front-end} solicitar
+dados e realizar ações no \textit{back-end} de maneira eficiente e padronizada,
+tornando-se amplamente utilizada em sistemas \textit{web}.
+
+No projeto, optou-se pelo \textit{framework} Django como ponto de partida para
+a criação da \acs{API}.
+
+\subsection{Django}
+
+Uma das partes principais do projeto é o conjunto de \textit{scripts} para
+automação da coleta e processamento de dados de redes sociais escritos em
+Python. Já que o Django é também baseado nessa linguagem, isso permite uma
+interação direta e simples entre ambas as camadas (\textit{back-end} e
+\textit{scripts}).
+
+Dado que nunca tivemos contato com o Django, um fator decisivo para sua escolha
+é a sua grande comunidade de usuários, o que proporciona muito conhecimento
+online, uma documentação detalhada e pronta ajuda em eventuais problemas e
+dúvidas. Ainda mais, ele possui código aberto, alinhando-se perfeitamente com a
+natureza acadêmica do projeto.
+
+Outro ponto que acelerou significativamente o desenvolvimento foi a vasta
+quantidade de bibliotecas disponíveis para o Django. A autenticação de usuários
+dentro da plataforma é um dos exemplos que foi facilitada pelo uso de
+bibliotecas.
+
+\subsection{SQLite}
+
+Dado que o sistema necessita gerenciar dados sobre essencialmente usuários e
+possíveis eventos futuros, estava claro o uso de um banco de dados relacional
+desde o início. Essas entidades possuem um formato predefinido e podem ser
+facilmente conectados em um modelo de dados relacional, portanto restava apenas
+decidir qual programa utilizar para manejar a informação.
+
+O SQLite é um \ac{RDBMS} de código aberto responsável por criar, atualizar e
+gerenciar bancos de dados relacionais. Uma de suas principais características é
+o armazenamento de informações em arquivos locais, dispensando o uso de um
+servidor de banco de dados separado. Essa propriedade torna o SQLite adequado
+para projetos de menor escala como o construído, uma vez que não exige a
+complexidade de um processo diferente com o servidor em execução, como o
+PostgreSQL ou MySQL.
+
+Outro ponto de interesse é sua capacidade de manejar baixo a médio tráfego de
+requisições \acs{HTTP}\label{acro:HTTP}, o que é ideal para o caso de uso, já
+que inicialmente, não existirão muitos usuários na plataforma.
+
+Além disso, o SQLite já é integrado nativamente ao \textit{framework} Django.
+Isso permitiu que o desenvolvimento fosse mais ágil, sem necessidade de
+configurações adicionais para ter acesso ao banco de dados.
+
+\section{\textit{Front-end}}
+
+O \textit{front-end} é igualmente importante em um sistema \textit{web},
+responsável pela interface gráfica disponibilizada ao usuário final. Dois
+aspectos englobados pelo \textit{front-end} são: experiência do usuário, a
+apresentação de informações e a interatividade, conjunto denominado de \ac{UX};
+e a experiência visual do sistema voltado a estética da plataforma, área
+denominada de \ac{UI}.
+
+Existem inúmeros \textit{frameworks} que oferecem ferramentas para o
+desenvolvimento dessas camadas do \textit{front-end} de maneira mais simples e
+ágil. Alguns deles são Angular, Svelte, Vue.JS e React.JS. A seguir, serão
+listados alguns motivos pelos quais decidiu-se pelo uso deste último.
+
+\subsection{React.JS}
+
+O principal motivo da escolha do React.JS para a construção do
+\textit{front-end} foi a sua enorme popularidade, o que assegurou a existência
+de muito conteúdo \textit{online} e auxílio da comunidade disponível. Isso
+também indiretamente deu acesso a muitas bibliotecas externas como o
+\textit{Material-UI} que oferece componentes de \acs{UI} prontos para uso,
+permitindo o foco nas funcionalidades do projeto.
+
+Além disso, ambos os integrantes do time já trabalharam com React.JS em
+projetos passados dentro da universidade, como na matéria de MAC0472
+(Laboratório de Métodos Ágeis). Essa oportunidade proporcionou uma base robusta
+e confortável para a utilização deste mesmo \textit{framework} neste trabalho,
+reduzindo a curva de aprendizado e aumentando a qualidade geral do projeto.
+
+\section{\textit{Webscraping}}
+
+A plataforma necessita de informações de possíveis eventos oriundas de fontes
+externas. A coleta desses dados é automatizada utilizando \textit{scripts}
+escritos em Python e realizada em cima de redes sociais usando ferramentas como
+Selenium e BeautifulSoup, essa técnica para adquirir os dados é denominado de
+\textit{Webscraping} ou raspagem de dados.
+
+\subsection{Selenium e BeautifulSoup}
+
+Existem várias bibliotecas mantidas em Python específicas para raspagem de
+informações de redes sociais, facilitando bastante o processo. Porém, é comum o
+bloqueio da utilização dessas ferramentas, por conta de possíveis violações dos
+termos de uso de cada plataforma. Por esse motivo, optou-se pelo uso do
+Selenium, comumente empregado em testes automatizados do \textit{front-end},
+mas podendo ser aplicado também para \textit{Webscraping}.
+
+Selenium é uma ferramenta capaz de automatizar funções do navegador,
+possibilitando interagir com \textit{websites} como se fossem usuários comuns,
+realizando ações como cliques e deslize de tela. Por conta dessa natureza, o
+problema de suspensão durante a navegação \textit{web} é menos frequente e
+oferece mais flexibilidade ao procurar informações nas redes sociais.
+
+Enquanto o Selenium busca o conteúdo, o BeautifulSoup é responsável por
+efetivamente extrair as informações. Ele é uma biblioteca capaz de obter dados
+de arquivos HTML, permitindo adquirir o texto de \textit{tags} HTML
+específicas, sendo exatamente o caso de uso do sistema para obter o conteúdo
+das postagens das mídias sociais.

@@ -1,0 +1,66 @@
+%!TeX root=../tese.tex
+%("dica" para o editor de texto: este arquivo é parte de um documento maior)
+
+\chapter{Pontos de melhoria}
+
+O sistema cumpre o que foi proposto, mas em desenvolvimento de
+\textit{software}, sempre há margens para aprimoramentos. A seguir, serão
+listados alguns pontos de melhoria identificados ao longo da execução do
+projeto.
+
+\section{Cadastro de eventos pelos usuários}
+
+Uma das grandes etapas do funcionamento do sistema é a raspagem de dados de
+\textit{websites} terceiros e isso traz consigo alguns problemas difíceis de
+sere
+m evitados como:
+\begin{itemize}
+    \item \textbf{Suspensão de uso:} caso a plataforma seja expandida para comportar
+          \textit{webscraping} em outros \textit{sites}, é importante levar em conta que
+          alguns têm termos de serviço que explicitamente proíbem essa prática. Isso pode
+          levar ao bloqueio do acesso aos dados por completo e até ações legais contra o
+          responsável.
+
+    \item \textbf{Instabilidade na estrutura HTML:} esse processo é muitas vezes sensível a alterações na estrutura e \textit{design} do \textit{site}, exigindo atualizações frequentes para manter a funcionalidade.
+
+    \item \textbf{Dependência de disponibilidade:} \textit{webscraping} depende da disponibilidade contínua do \textit{site} de origem. Caso ele esteja fora do ar ou passe por manutenção, a coleta de dados será interrompida.
+\end{itemize}
+
+Esses são alguns bons motivos para tornar o sistema construído independente
+dessa etapa. Para tanto, é possível adaptar o \textit{Back-end} e o
+\textit{Front-end} para comportar o cadastro de eventos pelos próprios usuários
+da plataforma.
+
+Essa mudança traz vantagens imediatas, como dispensar a fase de processamento
+textual, melhorando a qualidade das informações disponibilizadas e removendo a
+dependência com o serviço \textit{Hugginface chatbot}. Além disso, o evento já
+fica visível aos usuários logo em seguida de seu registro, diferentemente de
+como o sistema está construído, sendo necessário esperar 6 horas até a próxima
+execução da raspagem de dados.
+
+\section{Sistema em contêiner Docker}
+
+Na configuração atual, o \textit{Front-end}, \textit{Back-end} e os
+\textit{scripts} de raspagem de dados são simplesmente executados em segundo
+plano no servidor. Embora isso atenda às necessidades do projeto acadêmico, a
+implementação poderia se beneficiar significativamente ao incorporar a
+tecnologia Docker para gerenciar esses componentes.
+
+Docker é uma plataforma de código aberto que permite automatizar processos de
+\textit{deploy}, escalabilidade e gerenciamento de diferentes aplicações no que
+é chamado de contêineres. Eles são ambientes capazes de executar aplicações e
+gerenciar suas dependências de maneira encapsulada, sem interferência direta
+com outros processos rodando dentro da máquina ou outros contêineres,
+permitindo que elas funcionem em qualquer ambiente.
+
+A utilização do Docker traz algumas vantagens imediatas, como:
+\begin{itemize}
+    \item \textbf{Fluxo de desenvolvimento:} caso outros desenvolvedores contribuam com o projeto, Docker permite que seja possível construir a aplicação em um ambiente próximo ao de produção. Isso previne problemas de compatibilidade entre máquinas e facilita a colaboração de diferentes desenvolvedores.
+
+    \item \textbf{Isolamento:} o fato do Docker executar aplicações em contêineres separados, fornece isolamento entre todas as partes do sistema. Isso significa que problemas de dependência em pacotes compartilhados entre os \textit{scripts} e o \textit{back-end} são improváveis de acontecer.
+
+    \item \textbf{Escalabilidade:} caso o \textit{back-end} exija mais recursos em situações de grande demanda, por exemplo, é possível simplesmente escalar horizontalmente a aplicação executando mais um contêiner \textit{back-end}.
+\end{itemize}
+
+Esses são alguns benefícios a longo prazo que a utilização do Docker pode
+trazer nessa plataforma.
