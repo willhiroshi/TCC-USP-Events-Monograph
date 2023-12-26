@@ -19,7 +19,6 @@ pública \url{https://uspevents.ix.tc/}. A primeira página acessada pelo usuár
     \centering
     \includegraphics[width=1\textwidth]{figuras/pagina_inicial.png}
     \caption{Página principal do sistema}
-    \label{fig:enter-label}
 \end{figure}
 
 Nela, é possível clicar na localização de eventos disponíveis no mapa. Isso dá
@@ -63,7 +62,6 @@ para estruturar um possível evento dentro da plataforma.
     \centering
     \includegraphics[width=1\textwidth]{figuras/huggingface-chatbot.png}
     \caption{Processamento de um possível evento}
-    \label{fig:enter-label}
 \end{figure}
 
 O \textit{Hugginface chatbot} é basicamente uma plataforma que te permite
@@ -91,12 +89,12 @@ de dados via alguma biblioteca externa em mídias sociais é a suspensão
 temporária na utilização da aplicação devido a alguma infração nos termos de
 uso, mesmo que as páginas sejam abertas ao público.
 
-Esse problema foi contornado utilizando a ferramenta Selenium para simular o
-uso por um usuário comum e salvar a sessão do navegador. Nesses \textit{sites},
-é comum que precise de uma conta para acessar o seu conteúdo, mas conectar-se
-toda vez que executar o processo de \textit{webscraping} não é o ideal. Por
-isso que é interessante utilizar algum método para manter a sessão da conta
-salva para futuras raspagens de dados.
+Esse problema foi contornado temporariamente utilizando a ferramenta Selenium
+para simular o uso por um usuário comum e salvar a sessão do navegador. Nesses
+\textit{sites}, é comum que precise de uma conta para acessar o seu conteúdo,
+mas conectar-se toda vez que executar o processo de \textit{webscraping} não é
+o ideal. Por isso que é interessante utilizar algum método para manter a sessão
+da conta salva para futuras raspagens de dados.
 
 Um desafio adicional nesta etapa é referente às potenciais mudanças de design
 ou funcionalidades nos \textit{websites}. Ao longo do desenvolvimento do
@@ -129,11 +127,11 @@ CPU ARM de propósito geral, o que não é ideal para esse caso de uso. Nessas
 condições, utilizando o modelo de \acs{IA} generativa
 \href{https://huggingface.co/TheBloke/Llama-2-13B-chat-GGUF}{Llama-2}
 recentemente disponibilizado pela empresa Meta, foi possível processar um texto
-de um possível evento em aproximadamente 15 minutos e meio. Conforme mais
-postagens são analisadas, o tempo gasto se torna absurdo em um cenário normal
-de uso da plataforma, enquanto o \textit{chatbot} utilizado é consideravelmente
-mais rápido. Porém, essa escolha torna essa etapa dependente de um serviço
-externo, o que dificulta a manutenção já que podem ocorrer quebras de contrato
+de um evento em aproximadamente 15 minutos e meio. Conforme mais postagens são
+analisadas, o tempo gasto se torna absurdo em um cenário normal de uso da
+plataforma, enquanto o \textit{chatbot} utilizado é consideravelmente mais
+rápido. Porém, essa escolha torna essa etapa dependente de um serviço externo,
+o que dificulta a manutenção já que podem ocorrer quebras de contrato
 inesperadas ou indisponibilidade do mesmo por certo período, impactando
 diretamente nas operações do projeto.
 
@@ -141,14 +139,12 @@ diretamente nas operações do projeto.
     \centering
     \includegraphics[width=1\textwidth]{figuras/llama_2_local.png}
     \caption{Processamento textual no servidor}
-    \label{fig:enter-label}
 \end{figure}
 
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.6\textwidth]{figuras/huggingface-chatbot2.png}
     \caption{Processamento textual via \textit{Huggingface chatbot}}
-    \label{fig:enter-label}
 \end{figure}
 
 O \textit{chatbot} permite interagir com 5 modelos de código aberto diferentes
@@ -235,8 +231,7 @@ resultar em informações menos abrangentes e atualizadas.
 
 Uma das informações mais importantes contidas em um evento é a sua localização
 ou endereço, haja vista que é a partir dela que é possível realizar a busca da
-geolocalização e, em consequência, exibir o local de acontecimento do evento no
-mapa.
+geolocalização e, em consequência, exibir o local do evento no mapa.
 
 Entretanto, durante a etapa de processamento dos eventos, assim como destacamos
 no tópico \nameref{sec:infoProcessing}, existem momentos em que o modelo não é
@@ -251,36 +246,32 @@ sistema não consegue exibir na página principal estes eventos processados.
     \centering
     \includegraphics[width=1\textwidth]{figuras/locationlessPage.png}
     \caption{Paǵina de eventos sem localização}
-    \label{fig:enter-label}
 \end{figure}
 
-Por este motivo, a página de eventos de localização foi idealizada com o
-intuito de reunir os eventos dentro do sistema mesmo com a menor quantidade
-possível de informações obtidas a partir do modelo. Esta aba, pode ser acessada
-através do item na barra lateral, logo abaixo do mapa. A sua estrutura foi
-montada de maneira simples onde apenas são listados estes eventos que não
-puderam ser exibidos dentro do mapa da página principal.
+A página de eventos de localização foi idealizada com o intuito de reunir os
+eventos dentro do sistema mesmo com a menor quantidade possível de informações
+obtidas a partir do modelo. Esta aba, pode ser acessada através do item na
+barra lateral, logo abaixo do mapa.
 
 Devido ao seu design simples, os problemas enfrentados nesta etapa estavam um
 pouco mais relacionados com questões mais globais do projeto. O maior problema
-esteve relacionado como a maneira em que a identificação de eventos diferentes
+esteve relacionado com a maneira em que a identificação de eventos diferentes
 era feito dentro do banco de dados. Isso porque a princípio, acreditava-se que
 o \textit{link} de cada um dos \textit{posts} seriam distintos entre si, o que
-possibilitaria uma identificação fácil a ser feita. Porém, por algumas vezes,
-os endereços dos \textit{posts} se alteravam entre execuções do
-\textit{scraping} de dados, o que acabava sendo interpretado como postagens
-diferentes e, consequentemente, eventos basicamente duplicados. Este ponto
-acabou sendo bem evidenciado dentro da página de eventos sem localização, como
-ilustrado na figura abaixo:
+possibilitaria uma fácil diferenciação entre eles. Porém, algumas vezes, os
+endereços dos \textit{posts} se alteravam entre execuções de \textit{scraping}
+de dados, fazendo com que o sistema interpretasse erroneamente como postagens diferentes,
+consequentemente, criando eventos duplicados. Este ponto acabou sendo bem
+evidenciado dentro da página de eventos sem localização, como ilustrado na
+figura 5.11.
 
 \begin{figure}[h]
     \centering
     \includegraphics[width=1\textwidth]{figuras/duplicatedEvents.png}
     \caption{Eventos duplicados}
-    \label{fig:enter-label}
 \end{figure}
 
-A maneira para contornar este tipo de problema foi alterar a maneira como estes
+A maneira para contornar este tipo de problema foi alterar o modo como estes
 eventos eram construídos, já que a identificação era feita a partir de um
 \textit{hash} que se baseava no \textit{link} para sua construção. Dessa forma,
 ao esbarrar no problema de mesmos eventos possuírem endereços distintos em
@@ -303,7 +294,6 @@ próxima seção.
     \centering
     \includegraphics[scale=.8]{figuras/loginButton.png}
     \caption{Botão para abrir janela de cadastro ou \textit{login}}
-    \label{fig:enter-label}
 \end{figure}
 
 Por tal motivo, o processo de registro e \textit{login} de usuários é essencial
@@ -345,7 +335,6 @@ eventos que serão mostrados na tela principal.
     \centering
     \includegraphics[scale=.8]{figuras/userArea.png}
     \caption{Botão de acesso à área do usuário}
-    \label{fig:enter-label}
 \end{figure}
 
 Esta funcionalidade pode ser acessada através do botão na barra lateral
@@ -362,7 +351,6 @@ obtidos.
     \centering
     \includegraphics[scale=.5]{figuras/webpageRegisterModal.png}
     \caption{Formulário de registro de \textit{webpages}}
-    \label{fig:enter-label}
 \end{figure}
 
 Neste formulário, existe a possibilidade de cadastrar páginas tanto do
@@ -370,13 +358,6 @@ Neste formulário, existe a possibilidade de cadastrar páginas tanto do
 através de expressões regulares para garantir que o texto inserido esteja no
 formato de uma página \textit{web} e que pertença à rede social escolhida na
 seleção.
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=1\textwidth]{figuras/webpagesTable.png}
-    \caption{Aparência da página com \textit{webpages} cadastradas}
-    \label{fig:enter-label}
-\end{figure}
 
 A visualização das páginas é possível apenas para os usuários que fizeram o seu
 registro, ou seja, cada página cadastrada é única para cada usuário diferente,
@@ -393,6 +374,12 @@ fica disponível para visualização exclusiva do usuário, ou seja, apenas o
 responsável pelo cadastro da página em questão consegue visualizar seu registro
 na tabela.
 
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=1\textwidth]{figuras/webpagesTable.png}
+    \caption{Aparência da página com \textit{webpages} cadastradas}
+\end{figure}
+
 A partir do cadastro de suas páginas de preferência, os usuários são capazes de
 realizar a edição ou a remoção das informações que não tenham mais interesse
 através dos ícones de ação localizado em cada uma das linhas da tabela. Essas
@@ -405,7 +392,6 @@ diferenciar cada uma das páginas e cada um dos usuários que as cadastraram.
     \centering
     \includegraphics[scale=.5]{figuras/webpageActions.png}
     \caption{Ícones de ação de \textit{webpages}}
-    \label{fig:enter-label}
 \end{figure}
 
 Apesar do desenvolvimento desta etapa ter sido desafiador, grande parte dos
@@ -441,7 +427,7 @@ com a existência da relação \nameref{sec:WebPageUsers}, a ação era realizad
 sobre a própria \textit{webpage} ao invés de agir apenas sobre o registro da
 ligação intermediária entre o usuário que realizou a ação e a página, dessa
 forma, do ponto de vista do usuário que teve seu registro alterado
-incorretamente, sua referência era mantida porém a entidade referenciada havia
+incorretamente, sua referência era mantida, porém a entidade referenciada havia
 sido alterada o que causava a mudança indevida do seu registro.
 
 O processo de correção deste problema levou à criação de algumas tarefas no

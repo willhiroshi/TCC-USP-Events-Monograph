@@ -11,21 +11,20 @@ estruturado o projeto e quais as ferramentas a serem utilizadas a fim de
 viabilizar a criação de uma plataforma \textit{web} que atendessem ao objetivo
 inicial do projeto.
 
-Em relação à estrutura do projeto, a princípio, a separação mais clara e óbvia
-foi a escolhida. O sistema foi dividido em dois sub projetos, \textit{back-end}
-o qual ficaria responsável pelo armazenamento de dados, obtenção dos textos
-fonte e processamento das informações; e \textit{front-end} que seria utilizado
-para exibição dos dados e interação do usuário com a plataforma.
+Em relação à estrutura do projeto, a princípio, a separação mais clara foi a
+divisão em dois submódulos: \textit{back-end}, responsável pelo armazenamento
+de dados, obtenção dos textos fonte e processamento das informações; e
+\textit{front-end} que seria utilizado para exibição dos dados e interação do
+usuário com a plataforma.
 
-Ao longo do desenvolvimento foi se tornando cada vez mais clara uma nova
-separação para a estrutura geral, assim, um novo módulo chamado de
-\textit{scripts} foi criado no projeto, onde foram alocados arquivos que não se
-encaixavam exatamente no escopo que estava sendo definindo para o
-\textit{back-end}.
+Ao longo do desenvolvimento, tornou-se evidente a necessidade de uma nova
+separação na estrutura geral. Assim, foi criado um novo módulo denominado de
+\textit{scripts} no projeto, destinado a programas e arquivos utilizados no
+processo de raspagem e processamento de dados.
 
 Dessa forma, a aplicação está construída em três partes principais:
 \textit{front-end}, \textit{back-end} e \textit{webscraper scripts}. A seguir,
-será descrita em mais detalhes a escolha das tecnologias utilizadas e o
+serão descritos em mais detalhes a escolha das tecnologias utilizadas e o
 objetivo de cada camada.
 
 \section{\textit{Back-end}}
@@ -67,7 +66,7 @@ bibliotecas.
 Dado que o sistema necessita gerenciar dados sobre essencialmente usuários e
 possíveis eventos futuros, estava claro o uso de um banco de dados relacional
 desde o início. Essas entidades possuem um formato predefinido e podem ser
-facilmente conectados em um modelo de dados relacional, portanto restava apenas
+facilmente conectadas em um modelo de dados relacional, portanto restava apenas
 decidir qual programa utilizar para manejar a informação.
 
 O SQLite é um \ac{RDBMS} de código aberto responsável por criar, atualizar e
